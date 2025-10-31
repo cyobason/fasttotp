@@ -20,10 +20,7 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 
 ### App Demo
 
-<video width="600" height="auto" controls>
-  <source src="screenshots/app.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
 
 ### Login QR Code
 

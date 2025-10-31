@@ -20,10 +20,7 @@
 
 ### 应用演示
 
-<video width="600" height="auto" controls>
-  <source src="screenshots/app.mp4" type="video/mp4">
-  您的浏览器不支持视频标签。
-</video>
+https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
 
 ### 登录二维码
 
