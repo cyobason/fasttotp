@@ -31,12 +31,6 @@ Here's an example code for implementing FastTOTP authentication in your applicat
 fasttotp://api?url=$base_url&callback=$your_app_scheme&request_id=$request_id
 ```
 
-This code demonstrates how to:
-1. Generate a unique request ID
-2. Encode the target URL and callback URL
-3. Construct the FastTOTP protocol URI
-4. Launch the external application to open FastTOTP for authentication
-
 ### Login QR Code
 
 <img src="screenshots/login-qrcode.png" width="200px" alt="Login QR Code">
