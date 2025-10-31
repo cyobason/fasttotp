@@ -7,6 +7,7 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 ## Features
 
 - **QR Code Login**: Quickly scan QR codes to authenticate and log in to websites and applications
+- **Frontend Components**: Official React and Vue components available for web integration
 - **TOTP Generation**: Secure Time-based One-Time Password generation for multi-factor authentication
 - **Biometric Authentication**: Enhanced security with fingerprint and face recognition support on both Android and iOS
 - **Account Management**: Add and manage multiple authentication accounts
@@ -84,7 +85,17 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 - **Device ID Obfuscation**: Protects user privacy by obfuscating device identifiers
 - **QR Code Security**: Validates and processes QR codes using secure scanning practices
 
-### Dependencies
+### Frontend Components
+
+FastTOTP provides official frontend components for easy web integration:
+
+- **React Component**: [fasttotp-react](https://www.npmjs.com/package/fasttotp-react) - For React applications
+- **Vue 3 Component**: [fasttotp-vue-next](https://www.npmjs.com/package/fasttotp-vue-next) - For Vue 3 applications
+- **Vue 2 Component**: [fasttotp-vue](https://www.npmjs.com/package/fasttotp-vue) - For Vue 2 applications
+
+These components enable websites to easily integrate FastTOTP QR code login functionality with automatic polling, expiration handling, and customizable UI elements.
+
+## Dependencies
 
 Key dependencies include:
 

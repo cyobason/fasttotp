@@ -7,6 +7,7 @@
 ## 功能特性
 
 - **二维码登录**：快速扫描二维码以验证身份并登录网站和应用程序
+- **前端组件**：提供官方React和Vue组件，便于网页集成
 - **TOTP生成**：安全的基于时间的一次性密码生成，用于多因素认证
 - **生物识别认证**：支持Android和iOS设备上的指纹和面部识别，增强安全性
 - **账户管理**：添加和管理多个认证账户
@@ -83,6 +84,16 @@
 - **本地加密**：所有敏感认证数据都经过加密并安全存储
 - **设备ID混淆**：通过混淆设备标识符保护用户隐私
 - **二维码安全**：使用安全扫描实践验证和处理二维码
+
+### 前端组件
+
+FastTOTP提供官方前端组件，便于网页集成：
+
+- **React组件**：[fasttotp-react](https://www.npmjs.com/package/fasttotp-react) - 适用于React应用
+- **Vue 3组件**：[fasttotp-vue-next](https://www.npmjs.com/package/fasttotp-vue-next) - 适用于Vue 3应用
+- **Vue 2组件**：[fasttotp-vue](https://www.npmjs.com/package/fasttotp-vue) - 适用于Vue 2应用
+
+这些组件使网站能够轻松集成FastTOTP二维码登录功能，包括自动轮询、过期处理和可自定义的UI元素。
 
 ### 依赖项
 
