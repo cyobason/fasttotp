@@ -21,7 +21,7 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 ### App Demo
 
 <video width="600" height="auto" controls>
-  <source src="https://github.com/cyobason/fasttotp/raw/refs/heads/main/screenshots/app.mp4" type="video/mp4">
+  <source src="https://github.com/cyobason/fasttotp/raw/refs/heads/main/screenshots/app.mp4?raw=true" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
