@@ -1,0 +1,53 @@
+name: login
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ai_barcode_scanner: ^7.0.0
+  app_links: ^6.4.1
+  asn1lib: ^1.6.5
+  auth_totp: ^1.0.1
+  circular_countdown_timer: ^0.2.4
+  cupertino_icons: ^1.0.8
+  email_validator: ^3.0.0
+  flutter_html: ^3.0.0
+  flutter_localization: ^0.3.3
+  flutter_native_splash: ^2.4.7
+  http: ^1.5.0
+  intl: ^0.20.2
+  local_auth: ^2.3.0
+  mobile_device_identifier: ^0.0.3
+  network_info_plus: ^7.0.0
+  package_info_plus: ^9.0.0
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  pointycastle: ^4.0.0
+  remixicon: ^1.4.1
+  shared_preferences: ^2.5.3
+  shelf: ^1.4.2
+  sqflite: ^2.4.2
+  tdesign_flutter: ^0.2.5
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/android12splash.png
+  fullscreen: true
+  android_12:
+    color: "#FFFFFF"
+    image: assets/android12splash.png

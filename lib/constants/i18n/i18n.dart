@@ -1,0 +1,13 @@
+export 'en.dart';
+export 'es.dart';
+export 'zh.dart';
+export 'ar.dart';
+export 'de.dart';
+export 'pt.dart';
+export 'fr.dart';
+export 'ru.dart';
+export 'hi.dart';
+export 'it.dart';
+export 'ja.dart';
+export 'ko.dart';
+export 'id.dart';
