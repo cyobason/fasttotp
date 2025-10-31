@@ -21,13 +21,13 @@
 ### 应用演示
 
 <video width="600" height="auto" controls>
-  <source src="https://github.com/cyobason/fasttotp/raw/refs/heads/main/screenshots/app.mp4?raw=true" type="video/mp4">
+  <source src="screenshots/app.mp4" type="video/mp4">
   您的浏览器不支持视频标签。
 </video>
 
 ### 登录二维码
 
-![登录二维码](screenshots/login-qrcode.png)
+<img src="screenshots/login-qrcode.png" width="200px" alt="登录二维码">
 
 ## 快速开始
 

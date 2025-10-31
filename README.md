@@ -21,13 +21,13 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 ### App Demo
 
 <video width="600" height="auto" controls>
-  <source src="https://github.com/cyobason/fasttotp/raw/refs/heads/main/screenshots/app.mp4?raw=true" type="video/mp4">
+  <source src="screenshots/app.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ### Login QR Code
 
-![Login QR Code](screenshots/login-qrcode.png)
+<img src="screenshots/login-qrcode.png" width="200px" alt="Login QR Code">
 
 ## Getting Started
 
