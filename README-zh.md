@@ -22,6 +22,15 @@
 
 https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
 
+#### 应用登录示例代码
+
+以下是使用FastTOTP进行应用登录的示例代码：
+
+```bash
+# app_links
+fasttotp://api?url=$base_url&callback=$your_app_scheme&request_id=$request_id
+```
+
 ### 登录二维码
 
 <img src="screenshots/login-qrcode.png" width="200px" alt="登录二维码">
