@@ -73,7 +73,6 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 ### Architecture
 
 - **Streamlined Architecture**: Optimized for quick authentication flows and minimal latency
-- **MVVM Pattern**: Follows the Model-View-ViewModel architecture for clean separation of concerns
 - **Localization**: Implements Flutter Localization for extensive multi-language support
 - **State Management**: Uses Flutter's built-in state management with StatefulWidgets
 - **Database**: SQLite for secure local storage of authentication credentials
