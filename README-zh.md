@@ -2,6 +2,8 @@
 
 一款专为快速安全的二维码登录认证设计的Flutter应用程序，可用于网站和应用间的快速身份验证。提供TOTP生成和生物识别安全功能，提升用户体验。
 
+[**<span style="color: #0052d9">English</span>**](README.md) | [**<span style="color: #0052d9">中文</span>**](README-zh.md)
+
 ## 功能特性
 
 - **二维码登录**：快速扫描二维码以验证身份并登录网站和应用程序
