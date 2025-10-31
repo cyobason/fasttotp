@@ -94,6 +94,101 @@ FastTOTP provides official frontend components for easy web integration:
 
 These components enable websites to easily integrate FastTOTP QR code login functionality with automatic polling, expiration handling, and customizable UI elements.
 
+## API Documentation
+
+### Authentication Flow API
+
+FastTOTP uses a multi-step API authentication flow for secure login. Here are the required endpoints:
+
+#### 1. Get Public Key Endpoint
+
+**URL**: `{base_url}/get_public_key`
+
+**Method**: `GET`
+
+**Headers**:
+- `totp-requestId`: The request ID obtained from the QR code
+
+**Response**:
+```json
+{
+  "data": {
+    "key": "public_encryption_key"
+  },
+  "statusCode": 200
+}
+```
+
+#### 2. Submit Device and Email Endpoint
+
+**URL**: `{base_url}/submit`
+
+**Method**: `POST`
+
+**Headers**:
+- `totp-id`: Encrypted device ID
+- `totp-email`: Encrypted user email
+- `totp-requestId`: The request ID
+
+**Response**:
+```json
+{
+  "data": {
+    "error": "",
+    "name": "application_name",
+    "domain": "application_domain",
+    "unique_id": "application_unique_identifier",
+    "secret": "true|false"  // Whether to include secret in verification
+  },
+  "statusCode": 200
+}
+```
+
+#### 3. Verify TOTP Code Endpoint
+
+**URL**: `{base_url}/verify`
+
+**Method**: `POST`
+
+**Headers**:
+- `totp-id`: Encrypted device ID
+- `totp-code`: Encrypted TOTP code
+- `totp-email`: Encrypted user email
+- `totp-requestId`: The request ID
+- `totp-secret`: (Optional) Encrypted secret key, only if "secret" was true in submit response
+
+**Response**:
+```json
+{
+  "data": {
+    "error": ""  // Empty string indicates success
+  },
+  "statusCode": 200
+}
+```
+
+### QR Code Format
+
+The QR code should contain a URL with the following format:
+
+```
+{base_url}?request_id={unique_request_identifier}
+```
+
+### Authentication Flow
+
+1. Generate a QR code with a unique request ID
+2. The FastTOTP app scans the QR code and extracts the URL and request ID
+3. App requests the public key using the request ID
+4. App encrypts and submits the device ID and user email
+5. App generates a TOTP code and submits it for verification
+6. Upon successful verification, the user is logged in
+
+### Error Handling
+
+- All endpoints return a `statusCode` field (200 for success, 401 for authentication failure)
+- The `error` field in the response data contains any error message (empty string indicates success)
+
 ## Dependencies
 
 Key dependencies include:

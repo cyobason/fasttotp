@@ -94,6 +94,101 @@ FastTOTP提供官方前端组件，便于网页集成：
 
 这些组件使网站能够轻松集成FastTOTP二维码登录功能，包括自动轮询、过期处理和可自定义的UI元素。
 
+### API文档
+
+#### 认证流程API
+
+FastTOTP使用多步骤API认证流程进行安全登录。以下是所需的端点：
+
+##### 1. 获取公钥端点
+
+**URL**: `{base_url}/get_public_key`
+
+**方法**: `GET`
+
+**请求头**:
+- `totp-requestId`: 从二维码获取的请求ID
+
+**响应**:
+```json
+{
+  "data": {
+    "key": "public_encryption_key"
+  },
+  "statusCode": 200
+}
+```
+
+##### 2. 提交设备和邮箱端点
+
+**URL**: `{base_url}/submit`
+
+**方法**: `POST`
+
+**请求头**:
+- `totp-id`: 加密的设备ID
+- `totp-email`: 加密的用户邮箱
+- `totp-requestId`: 请求ID
+
+**响应**:
+```json
+{
+  "data": {
+    "error": "",
+    "name": "application_name",
+    "domain": "application_domain",
+    "unique_id": "application_unique_identifier",
+    "secret": "true|false"  // 是否在验证中包含密钥
+  },
+  "statusCode": 200
+}
+```
+
+##### 3. 验证TOTP码端点
+
+**URL**: `{base_url}/verify`
+
+**方法**: `POST`
+
+**请求头**:
+- `totp-id`: 加密的设备ID
+- `totp-code`: 加密的TOTP码
+- `totp-email`: 加密的用户邮箱
+- `totp-requestId`: 请求ID
+- `totp-secret`: (可选) 加密的密钥，仅当submit响应中的"secret"为true时需要
+
+**响应**:
+```json
+{
+  "data": {
+    "error": ""  // 空字符串表示成功
+  },
+  "statusCode": 200
+}
+```
+
+#### 二维码格式
+
+二维码应包含以下格式的URL：
+
+```
+{base_url}?request_id={unique_request_identifier}
+```
+
+#### 认证流程
+
+1. 生成包含唯一请求ID的二维码
+2. FastTOTP应用扫描二维码并提取URL和请求ID
+3. 应用使用请求ID请求公钥
+4. 应用加密并提交设备ID和用户邮箱
+5. 应用生成TOTP码并提交进行验证
+6. 成功验证后，用户登录成功
+
+#### 错误处理
+
+- 所有端点返回`statusCode`字段（200表示成功，401表示认证失败）
+- 响应数据中的`error`字段包含任何错误消息（空字符串表示成功）
+
 ### 依赖项
 
 主要依赖项包括：
