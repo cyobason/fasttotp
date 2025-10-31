@@ -31,9 +31,11 @@ Here's an example code for implementing FastTOTP authentication in your applicat
 fasttotp://api?url=$base_url&callback=$your_app_scheme&request_id=$request_id
 ```
 
-### Login QR Code
+### PC Login QR Code  
 
 <img src="screenshots/login-qrcode.png" width="200px" alt="Login QR Code">
+
+Using FastTOTP to scan the PC login QR code, you can quickly log in to the application.
 
 ## Getting Started
 

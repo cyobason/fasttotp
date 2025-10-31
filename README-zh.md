@@ -22,7 +22,7 @@
 
 https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
 
-#### 应用登录示例代码
+#### App登录
 
 以下是使用FastTOTP进行应用登录的示例代码：
 
@@ -31,9 +31,11 @@ https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
 fasttotp://api?url=$base_url&callback=$your_app_scheme&request_id=$request_id
 ```
 
-### 登录二维码
+### PC登录二维码
 
 <img src="screenshots/login-qrcode.png" width="200px" alt="登录二维码">
+
+使用FastTOTP扫描PC登录二维码，即可快速登录应用。
 
 ## 快速开始
 
