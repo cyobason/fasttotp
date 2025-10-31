@@ -22,7 +22,7 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 
 https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
 
-#### App Login Example Code
+#### App Login
 
 Here's an example code for implementing FastTOTP authentication in your application:
 
