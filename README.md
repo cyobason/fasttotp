@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo](assets/logo.png)
+![Logo](assets/source/android/icons/android-icon-96.png)
 
 # FastTOTP
 
