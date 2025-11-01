@@ -20,13 +20,21 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 
 ## Screenshots
 
-<img src="screenshots/1.jpg" width="200px" alt="Screenshot 1">
-<img src="screenshots/2.jpg" width="200px" alt="Screenshot 2">
-<img src="screenshots/3.jpg" width="200px" alt="Screenshot 3">
-<img src="screenshots/4.jpg" width="200px" alt="Screenshot 4">
-<img src="screenshots/5.jpg" width="200px" alt="Screenshot 5">
-<img src="screenshots/6.jpg" width="200px" alt="Screenshot 6">
-<img src="screenshots/7.jpg" width="200px" alt="Screenshot 7">
+<table>
+  <tr>
+    <td><img src="screenshots/1.jpg" width="200px" alt="Screenshot 1"></td>
+    <td><img src="screenshots/2.jpg" width="200px" alt="Screenshot 2"></td>
+    <td><img src="screenshots/3.jpg" width="200px" alt="Screenshot 3"></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/4.jpg" width="200px" alt="Screenshot 4"></td>
+    <td><img src="screenshots/5.jpg" width="200px" alt="Screenshot 5"></td>
+    <td><img src="screenshots/6.jpg" width="200px" alt="Screenshot 6"></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/7.jpg" width="200px" alt="Screenshot 7"></td>
+  </tr>
+</table>
 
 ### App Demo
 
