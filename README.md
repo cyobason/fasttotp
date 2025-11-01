@@ -49,7 +49,7 @@ A streamlined Flutter application designed specifically for quick and secure QR 
 
 ### App Demo
 
-https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
+https://github.com/user-attachments/assets/f6b4da7c-e351-4c43-8ea1-d68ee6c48589
 
 #### App Login
 
