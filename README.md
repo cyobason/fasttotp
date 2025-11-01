@@ -1,10 +1,10 @@
 # FastTOTP
 
+[**<span style="color: #0052d9">English</span>**](README.md) | [**<span style="color: #0052d9">中文</span>**](README-zh.md)
+
 A streamlined Flutter application designed specifically for quick and secure QR code-based login authentication across websites and applications. Provides TOTP generation and biometric security features for enhanced user experience.
 
 <img src="screenshots/uml.png" width="80%" alt="UML Diagram">
-
-[**<span style="color: #0052d9">English</span>**](README.md) | [**<span style="color: #0052d9">中文</span>**](README-zh.md)
 
 ## Features
 
