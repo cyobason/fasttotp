@@ -20,6 +20,14 @@
 
 ## 截图
 
+<img src="screenshots/1.jpg" width="200px" alt="Screenshot 1">
+<img src="screenshots/2.jpg" width="200px" alt="Screenshot 2">
+<img src="screenshots/3.jpg" width="200px" alt="Screenshot 3">
+<img src="screenshots/4.jpg" width="200px" alt="Screenshot 4">
+<img src="screenshots/5.jpg" width="200px" alt="Screenshot 5">
+<img src="screenshots/6.jpg" width="200px" alt="Screenshot 6">
+<img src="screenshots/7.jpg" width="200px" alt="Screenshot 7">
+
 ### 应用演示
 
 https://github.com/user-attachments/assets/b228a33d-5ed9-49f4-8fba-483f502dd3af
