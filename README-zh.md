@@ -1,6 +1,17 @@
+<div align="center">
+
+![Logo](assets/logo.png)
+
 # FastTOTP
 
+[last-commit]: https://img.shields.io/github/last-commit/cyobason/fasttotp?style=for-the-badge&logo=github&logoColor=C0CAF5&labelColor=414868
+[license]: https://img.shields.io/github/license/cyobason/fasttotp?style=for-the-badge&logo=opensourcehardware&label=License&logoColor=C0CAF5&labelColor=414868&color=8c73cc
+[![][last-commit]](https://github.com/cyobason/fasttotp/pulse)
+[![][license]](https://github.com/cyobason/fasttotp/blob/main/LICENSE)
+
 [**<span style="color: #0052d9">English</span>**](README.md) | [**<span style="color: #0052d9">中文</span>**](README-zh.md)
+
+</div>
 
 一款专为快速安全的二维码登录认证设计的Flutter应用程序，可用于网站和应用间的快速身份验证。提供TOTP生成和生物识别安全功能，提升用户体验。
 
