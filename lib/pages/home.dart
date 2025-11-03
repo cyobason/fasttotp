@@ -508,47 +508,41 @@ class _MyHomePageState extends State<MyHomePage> {
           alert(responseVerify['data']['error']);
           return;
         }
-        // 6. login successful
-        alert(
-          Lang.t('loginSuccess'),
-          onTap: () async {
-            // 7. update recently data
-            var name = responseSubmit['data']['name'].toString();
-            var domain = responseSubmit['data']['domain'].toString();
-            var uniqueId = responseSubmit['data']['unique_id'].toString();
-            int timestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-            var db = await sqlite();
-            await db.transaction((txn) async {
-              await txn.update(
-                'emails',
-                {'timestamp': timestamp},
-                where: 'id = ?',
-                whereArgs: [item['id']],
-              );
-              int count = await txn.update(
-                'accounts',
-                {'timestamp': timestamp, 'name': name, 'domain': domain},
-                where: 'email_id = ? and unique_id = ?',
-                whereArgs: [item['id'], uniqueId],
-              );
-              if (count == 0) {
-                await txn.insert('accounts', {
-                  'email_id': item['id'],
-                  'unique_id': uniqueId,
-                  'name': name,
-                  'domain': domain,
-                  'timestamp': timestamp,
-                });
-              }
+        // 6. login successful & update recently data
+        var name = responseSubmit['data']['name'].toString();
+        var domain = responseSubmit['data']['domain'].toString();
+        var uniqueId = responseSubmit['data']['unique_id'].toString();
+        int timestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        var db = await sqlite();
+        await db.transaction((txn) async {
+          await txn.update(
+            'emails',
+            {'timestamp': timestamp},
+            where: 'id = ?',
+            whereArgs: [item['id']],
+          );
+          int count = await txn.update(
+            'accounts',
+            {'timestamp': timestamp, 'name': name, 'domain': domain},
+            where: 'email_id = ? and unique_id = ?',
+            whereArgs: [item['id'], uniqueId],
+          );
+          if (count == 0) {
+            await txn.insert('accounts', {
+              'email_id': item['id'],
+              'unique_id': uniqueId,
+              'name': name,
+              'domain': domain,
+              'timestamp': timestamp,
             });
-            await db.close();
-            await loadData(reset: true);
-            if (api.isNotEmpty && scheme.isNotEmpty) {
-              var uri = Uri.parse(scheme);
-              await launchUrl(uri, mode: LaunchMode.externalApplication);
-            }
-          },
-        );
+          }
+        });
+        await db.close();
+        await loadData(reset: true);
+        if (api.isNotEmpty && scheme.isNotEmpty) {
+          var uri = Uri.parse(scheme);
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
       },
     );
   }
