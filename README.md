@@ -158,10 +158,8 @@ FastTOTP uses a multi-step API authentication flow for secure login. Here are th
 **Response**:
 ```json
 {
-  "data": {
-    "key": "public_encryption_key"
-  },
-  "statusCode": 200
+  "key": "public_encryption_key",
+  "request_id": "unique_request_identifier"
 }
 ```
 
@@ -179,14 +177,11 @@ FastTOTP uses a multi-step API authentication flow for secure login. Here are th
 **Response**:
 ```json
 {
-  "data": {
-    "error": "",
-    "name": "application_name",
-    "domain": "application_domain",
-    "unique_id": "application_unique_identifier",
-    "secret": "true|false"  // Whether to include secret in verification
-  },
-  "statusCode": 200
+  "error": "",
+  "name": "application_name",
+  "domain": "application_domain",
+  "unique_id": "application_unique_identifier",
+  "secret": "true|false"  // Whether to include secret in verification
 }
 ```
 
@@ -206,10 +201,7 @@ FastTOTP uses a multi-step API authentication flow for secure login. Here are th
 **Response**:
 ```json
 {
-  "data": {
-    "error": ""  // Empty string indicates success
-  },
-  "statusCode": 200
+  "error": ""  // Empty string indicates success
 }
 ```
 

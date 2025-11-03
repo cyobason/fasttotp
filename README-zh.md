@@ -158,10 +158,8 @@ FastTOTP使用多步骤API认证流程进行安全登录。以下是所需的端
 **响应**:
 ```json
 {
-  "data": {
-    "key": "public_encryption_key"
-  },
-  "statusCode": 200
+  "key": "public_encryption_key",
+  "request_id": "unique_request_identifier"
 }
 ```
 
@@ -179,15 +177,12 @@ FastTOTP使用多步骤API认证流程进行安全登录。以下是所需的端
 **响应**:
 ```json
 {
-  "data": {
     "error": "",
     "name": "application_name",
     "domain": "application_domain",
     "unique_id": "application_unique_identifier",
     "secret": "true|false"  // 是否在验证中包含密钥
-  },
-  "statusCode": 200
-}
+  }
 ```
 
 ##### 3. 验证TOTP码端点
@@ -206,10 +201,7 @@ FastTOTP使用多步骤API认证流程进行安全登录。以下是所需的端
 **响应**:
 ```json
 {
-  "data": {
-    "error": ""  // 空字符串表示成功
-  },
-  "statusCode": 200
+  "error": ""  // 空字符串表示成功
 }
 ```
 
