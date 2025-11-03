@@ -171,4 +171,4 @@ The FastTOTP plugin is released under the GPLv2 or later license. For more detai
 
 **Disclaimer**: By using this plugin, you agree to follow the terms of the license agreement. While we strive to ensure the security and stability of the plugin, the author is not responsible for any loss caused by using this plugin.
 
-© " . date("Y") . " FastTOTP. All rights reserved.
+© FastTOTP. All rights reserved.
