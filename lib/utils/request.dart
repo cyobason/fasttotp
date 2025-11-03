@@ -15,11 +15,11 @@ Future<Map<String, dynamic>> request(
     http.Response response;
     if (isPost) {
       response = await http
-          .get(uri, headers: headers)
+          .post(uri, headers: headers)
           .timeout(Duration(milliseconds: connectTimeout));
     } else {
       response = await http
-          .post(uri, headers: headers)
+          .get(uri, headers: headers)
           .timeout(Duration(milliseconds: connectTimeout));
     }
     dynamic data;
