@@ -140,6 +140,10 @@ FastTOTP提供官方前端组件，便于网页集成：
 
 这些组件使网站能够轻松集成FastTOTP二维码登录功能，包括自动轮询、过期处理和可自定义的UI元素。
 
+### WordPress 插件
+
+FastTOTP 还提供了官方 WordPress 插件，可与 WordPress 网站无缝集成。您可以在 [wordpress](wordpress/) 目录中找到插件代码。
+
 ### API文档
 
 #### 认证流程API

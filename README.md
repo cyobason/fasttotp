@@ -140,6 +140,10 @@ FastTOTP provides official frontend components for easy web integration:
 
 These components enable websites to easily integrate FastTOTP QR code login functionality with automatic polling, expiration handling, and customizable UI elements.
 
+## WordPress Plugin
+
+FastTOTP also provides an official WordPress plugin for seamless integration with WordPress websites. You can find the plugin code in the [wordpress](wordpress/) directory.
+
 ## API Documentation
 
 ### Authentication Flow API
