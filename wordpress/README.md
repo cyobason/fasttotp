@@ -14,7 +14,7 @@ FastTOTP is a plugin that provides a minimalist password-free login experience f
 
 ## Plugin Screenshot
 
-![FastTOTP WordPress Plugin Screenshot](ScreenShot.png)
+<img src="ScreenShot.png" width="200px" alt="FastTOTP WordPress Plugin Screenshot">
 
 ## Features
 

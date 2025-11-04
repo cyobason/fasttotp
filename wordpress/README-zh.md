@@ -14,7 +14,7 @@ FastTOTP 是一个为 WordPress 网站提供极简主义无密码登录体验的
 
 ## 插件截图
 
-![FastTOTP WordPress 插件截图](ScreenShot.png)
+<img src="ScreenShot.png" width="200px" alt="FastTOTP WordPress 插件截图">
 
 ## 功能特性
 
