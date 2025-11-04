@@ -127,7 +127,12 @@ JS;
         }
         
         // Register AJAX action for fetching QR code login form
-        add_action('wp_ajax_nopriv_fasttotp_get_qr_login', array($this, 'get_qr_code_login_ajax'));
+        add_action('wp_ajax_fasttotp_get_qr_login', array($this, 'get_qr_code_login_ajax')); // For authenticated users
+        add_action('wp_ajax_nopriv_fasttotp_get_qr_login', array($this, 'get_qr_code_login_ajax')); // For non-authenticated users
+        
+        // Register AJAX action for getting new QR code
+        add_action('wp_ajax_fasttotp_get_qr_code', array($this, 'get_qr_code_ajax')); // For authenticated users
+        add_action('wp_ajax_nopriv_fasttotp_get_qr_code', array($this, 'get_qr_code_ajax')); // For non-authenticated users
         
         // Register REST API endpoints for FastTOTP authentication
         add_action('rest_api_init', array($this, 'register_rest_endpoints'));
@@ -248,6 +253,52 @@ JS;
     public function get_qr_code_login_ajax() {
         $this->render_qr_code_login();
         wp_die(); // Required to terminate the AJAX request
+    }
+    
+    /**
+     * Handle AJAX request for getting a new QR code
+     * Returns JSON response with new request_id and QR code
+     */
+    public function get_qr_code_ajax() {
+        // No nonce verification to allow non-logged in users to refresh QR codes
+        
+        // Generate new request ID
+        $request_id = $this->generate_request_id();
+        
+        // Store request with 5 minute expiration
+        $request_data = array(
+            'created_at' => time(),
+            'status' => 'pending',
+            'user_id' => null
+        );
+        
+        // Store request in memory
+        $this->store_request($request_id);
+        $this->request_store[$request_id] = $request_data;
+        
+        // Store in transient with 5 minute expiration
+        set_transient('fasttotp_request_' . $request_id, $request_data, 5 * MINUTE_IN_SECONDS);
+        
+        // Generate QR code content
+        $base_url = rest_url('fasttotp/v1');
+        $qr_code_url = add_query_arg(array('request_id' => $request_id), $base_url);
+        
+        // Generate QR code image URL
+        $qr_code_image = 'https://api.qrserver.com/v1/create-qr-code/?data=' . urlencode($qr_code_url) . '&size=200x200';
+        
+        // Prepare response data
+        $response = array(
+            'success' => true,
+            'data' => array(
+                'request_id' => $request_id,
+                'qr_code' => $qr_code_image,
+                'expiry_time' => 300, // 5 minutes in seconds
+                'created_at' => time()
+            )
+        );
+        
+        // Send JSON response
+        wp_send_json($response);
     }
     
     /**

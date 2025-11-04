@@ -17,13 +17,24 @@
         
         var fasttotpCheckUrl = options.checkUrl;
         var fasttotpStatusText = options.statusText || 'Please scan the QR code with your FastTOTP app';
+        var fasttotpExpiredText = 'QR code has expired. Please refresh.';
         
         // Set global request ID if provided
         if (options.requestId) {
             window.fasttotpCurrentRequestId = options.requestId;
         }
         
-        // Check if jQuery is loaded, wait or use native JavaScript if not
+        // Initialize expiry time if not set
+        if (!window.fasttotpQRCodeExpiry) {
+            window.fasttotpQRCodeExpiry = 300; // 5 minutes in seconds
+        }
+        
+        // Initialize created time if not set
+        if (!window.fasttotpQRCodeCreated) {
+            window.fasttotpQRCodeCreated = Math.floor(Date.now() / 1000);
+        }
+        
+        // Check if jQuery is loaded
         function initFastTOTP() {
             if (typeof jQuery !== 'undefined') {
                 // jQuery available, use jQuery implementation
@@ -36,6 +47,11 @@
                 
                 // Login check function
                 function checkLogin() {
+                    // Check if QR code has expired before making the request
+                    if (isQRCodeExpired()) {
+                        return; // Stop checking when expired
+                    }
+                    
                     // Get request ID
                     var requestId = window.fasttotpCurrentRequestId || jq('.fasttotp-login-section').data('request-id');
                     
@@ -54,61 +70,126 @@
                                 window.location.href = '/wp-admin/';
                                 return;
                             }
-                            setTimeout(checkLogin, 2000);
+                            // Only continue checking if QR code is still valid
+                            if (!isQRCodeExpired()) {
+                                setTimeout(checkLogin, 2000);
+                            }
                         },
                         error: function() {
-                            setTimeout(checkLogin, 2000);
+                            // Only continue checking if QR code is still valid
+                            if (!isQRCodeExpired()) {
+                                setTimeout(checkLogin, 2000);
+                            }
                         }
+                    });
+                }
+                
+                // Check if QR code is expired
+                function isQRCodeExpired() {
+                    var currentTime = Math.floor(Date.now() / 1000);
+                    var elapsedTime = currentTime - window.fasttotpQRCodeCreated;
+                    return elapsedTime >= window.fasttotpQRCodeExpiry;
+                }
+                
+                // Update countdown display
+                function updateCountdown() {
+                    var countdownElement = jq('#fasttotp-countdown');
+                    var refreshButtonContainer = jq('.fasttotp-refresh-btn');
+                    
+                    // Clear any existing timeout to prevent multiple countdowns running simultaneously
+                    if (window.fasttotpCountdownTimeout) {
+                        clearTimeout(window.fasttotpCountdownTimeout);
+                    }
+                    
+                    function update() {
+                        if (isQRCodeExpired()) {
+                            countdownElement.text(fasttotpExpiredText);
+                            countdownElement.css('color', '#dc3545');
+                            jq('.fasttotp-qr-code').css('opacity', '0.5');
+                            refreshButtonContainer.show();
+                            return;
+                        }
+                        
+                        var currentTime = Math.floor(Date.now() / 1000);
+                        var elapsedTime = currentTime - window.fasttotpQRCodeCreated;
+                        var remainingTime = window.fasttotpQRCodeExpiry - elapsedTime;
+                        
+                        // Format as MM:SS
+                        var minutes = Math.floor(remainingTime / 60);
+                        var seconds = remainingTime % 60;
+                        var formattedTime = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+                        
+                        countdownElement.text('Valid for: ' + formattedTime);
+                        countdownElement.css('color', '#666');
+                        refreshButtonContainer.hide();
+                        
+                        // Store timeout reference to clear it later if needed
+                        window.fasttotpCountdownTimeout = setTimeout(update, 1000);
+                    }
+                    
+                    update(); // Initial update
+                }
+                
+                // Setup refresh button functionality
+                function setupRefreshButton() {
+                    jq('#fasttotp-refresh-qr').on('click', function() {
+                        // Show loading state
+                        jq(this).text('Refreshing...');
+                        
+                        // Make AJAX request to get new QR code
+                        jq.ajax({
+                            url: window.ajaxurl || '/wp-admin/admin-ajax.php',
+                            type: 'GET',
+                            data: {
+                                action: 'fasttotp_get_qr_code',
+                                nonce: typeof fasttotpQrNonce !== 'undefined' ? fasttotpQrNonce : ''
+                            },
+                            dataType: 'json',
+                            success: function(data) {
+                                if (data && data.success && data.data) {
+                                    // Update QR code image
+                                    jq('#fasttotp-qr-image').attr('src', data.data.qr_code);
+                                    
+                                    // Update request ID
+                                    window.fasttotpCurrentRequestId = data.data.request_id;
+                                    jq('.fasttotp-login-section').data('request-id', data.data.request_id);
+                                    
+                                    // Update timestamps (critical for expiry check)
+                                    window.fasttotpQRCodeCreated = Math.floor(Date.now() / 1000);
+                                    
+                                    // Reset UI
+                                    updateStatus();
+                                    jq('#fasttotp-countdown').css('color', '#666');
+                                    jq('.fasttotp-qr-code').css('opacity', '1');
+                                    jq('.fasttotp-refresh-btn').hide();
+                                    
+                                    // Restart countdown with new timestamp
+                                    updateCountdown();
+                                    
+                                    // Restart login checking
+                                    checkLogin();
+                                }
+                            },
+                            complete: function() {
+                                // Reset button text
+                                jq('#fasttotp-refresh-qr').text('Refresh QR Code');
+                            }
+                        });
                     });
                 }
                 
                 // Initialize
                 if (jq('.fasttotp-login-section').length) {
                     updateStatus();
-                    checkLogin();
-                }
-            } else if (typeof window.jQuery === 'undefined' && typeof wp !== 'undefined' && wp.element) {
-                // If WordPress wp.element is available but jQuery is not, use native JavaScript fallback
-                fallbackImplementation();
-            } else {
-                // jQuery not loaded, try again after a short delay
-                setTimeout(initFastTOTP, 500);
-            }
-        }
-        
-        // Native JavaScript fallback implementation
-        function fallbackImplementation() {
-            var requestId = window.fasttotpCurrentRequestId;
-            var statusElement = document.getElementById('fasttotp-status');
-            
-            if (statusElement) {
-                statusElement.textContent = fasttotpStatusText;
-            }
-            
-            function checkLogin() {
-                if (!requestId) {
-                    setTimeout(checkLogin, 2000);
-                    return;
-                }
-                
-                // Use native XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', fasttotpCheckUrl + '?request_id=' + encodeURIComponent(requestId));
-                xhr.responseType = 'json';
-                xhr.onload = function() {
-                    if (xhr.status === 200 && xhr.response && xhr.response.logged_in) {
-                        window.location.href = '/wp-admin/';
-                        return;
+                    updateCountdown(); // Start countdown
+                    setupRefreshButton(); // Setup refresh button
+                    
+                    // Only check login if QR code is valid
+                    if (!isQRCodeExpired()) {
+                        checkLogin();
                     }
-                    setTimeout(checkLogin, 2000);
-                };
-                xhr.onerror = function() {
-                    setTimeout(checkLogin, 2000);
-                };
-                xhr.send();
+                }
             }
-            
-            checkLogin();
         }
         
         // If document is already loaded, initialize immediately; otherwise wait for DOMContentLoaded

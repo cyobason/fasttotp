@@ -38,22 +38,6 @@ class FastTOTP_Get_Public_Key {
         // Get request ID from header
         $request_id = $request->get_header('totp_requestid');
         
-        // Initialize the request in request_store if request_id is provided
-        if ($request_id) {
-            // Use transients API to store request data for persistence across requests
-            $request_data = array(
-                'created_at' => time(),
-                'status' => 'initialized',
-                'user_id' => null
-            );
-            
-            // Store in transients with 5 minute expiration
-            set_transient('fasttotp_request_' . $request_id, $request_data, 5 * MINUTE_IN_SECONDS);
-            
-            // Also keep in memory for current request
-            $this->fasttotp->request_store[$request_id] = $request_data;
-        }
-        
         return new WP_REST_Response(array(
             'key' => get_option('fasttotp_public_key', ''),
             'request_id' => $request_id,

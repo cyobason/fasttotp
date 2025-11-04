@@ -47,10 +47,21 @@ class FastTOTP_Submit_Device_Email {
             $request_data = get_transient('fasttotp_request_' . $request_id);
         }
         
-        // If we still don't have request data, it's invalid
+        // If we still don't have request data, it's invalid or expired
         if (!$request_id || !$request_data) {
             return new WP_REST_Response(array(
-                'error' => __('Invalid request ID', 'fasttotp')
+                'error' => __('QR code has expired or is invalid', 'fasttotp')
+            ));
+        }
+        
+        // Check if request is expired
+        $created_at = isset($request_data['created_at']) ? $request_data['created_at'] : 0;
+        $current_time = time();
+        $expiry_time = 300; // 5 minutes in seconds
+        
+        if (($current_time - $created_at) >= $expiry_time) {
+            return new WP_REST_Response(array(
+                'error' => __('QR code has expired', 'fasttotp')
             ));
         }
         
