@@ -448,8 +448,8 @@ class _MyHomePageState extends State<MyHomePage> {
       '/get_public_key',
       headers: {'totp-requestId': requestId},
     );
-    hideLoading();
     if (responsePublicKey['statusCode'] == 401) {
+      hideLoading();
       return;
     }
     publicKey = responsePublicKey['data']['key'];
@@ -460,17 +460,17 @@ class _MyHomePageState extends State<MyHomePage> {
       'totp-email': encrypt(item['email']),
       'totp-requestId': requestId,
     };
-    showLoading();
     var responseSubmit = await request(
       url,
       '/submit',
       isPost: true,
       headers: submitHeaders,
     );
-    hideLoading();
     if (responseSubmit['statusCode'] == 401) {
+      hideLoading();
       return;
     }
+    hideLoading();
     if (responseSubmit['data']['error'].toString().isNotEmpty) {
       alert(responseSubmit['data']['error']);
       return;
