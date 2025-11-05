@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> getFingerStatus() async {
     auth.isDeviceSupported().then(
-      (bool isSupported) => setState(() => fingerSupported = isSupported),
+          (bool isSupported) => setState(() => fingerSupported = isSupported),
     );
     var fingerValue = await option('finger');
     if (fingerValue.isNotEmpty) {
@@ -133,38 +133,38 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       pageBuilder:
           (
-            BuildContext buildContext,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
+          BuildContext buildContext,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
           ) {
-            return TDInputDialog(
-              textEditingController: email,
-              title: Lang.t('addTitle'),
-              content: Lang.t('addTip'),
-              hintText: Lang.t('addHintText'),
-              leftBtn: TDDialogButtonOptions(
-                title: Lang.t('cancel'),
-                action: () {
-                  Navigator.pop(context);
-                },
-              ),
-              rightBtn: TDDialogButtonOptions(
-                title: Lang.t('confirm'),
-                action: () {
-                  if (email.text.isEmpty) {
-                    return;
-                  }
-                  bool isValid = EmailValidator.validate(email.text);
-                  if (!isValid) {
-                    alert(Lang.t('invalidEmail'));
-                    return;
-                  }
-                  Navigator.pop(context);
-                  addEmailSuccess();
-                },
-              ),
-            );
-          },
+        return TDInputDialog(
+          textEditingController: email,
+          title: Lang.t('addTitle'),
+          content: Lang.t('addTip'),
+          hintText: Lang.t('addHintText'),
+          leftBtn: TDDialogButtonOptions(
+            title: Lang.t('cancel'),
+            action: () {
+              Navigator.pop(context);
+            },
+          ),
+          rightBtn: TDDialogButtonOptions(
+            title: Lang.t('confirm'),
+            action: () {
+              if (email.text.isEmpty) {
+                return;
+              }
+              bool isValid = EmailValidator.validate(email.text);
+              if (!isValid) {
+                alert(Lang.t('invalidEmail'));
+                return;
+              }
+              Navigator.pop(context);
+              addEmailSuccess();
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -508,41 +508,47 @@ class _MyHomePageState extends State<MyHomePage> {
           alert(responseVerify['data']['error']);
           return;
         }
-        // 6. login successful & update recently data
-        var name = responseSubmit['data']['name'].toString();
-        var domain = responseSubmit['data']['domain'].toString();
-        var uniqueId = responseSubmit['data']['unique_id'].toString();
-        int timestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-        var db = await sqlite();
-        await db.transaction((txn) async {
-          await txn.update(
-            'emails',
-            {'timestamp': timestamp},
-            where: 'id = ?',
-            whereArgs: [item['id']],
-          );
-          int count = await txn.update(
-            'accounts',
-            {'timestamp': timestamp, 'name': name, 'domain': domain},
-            where: 'email_id = ? and unique_id = ?',
-            whereArgs: [item['id'], uniqueId],
-          );
-          if (count == 0) {
-            await txn.insert('accounts', {
-              'email_id': item['id'],
-              'unique_id': uniqueId,
-              'name': name,
-              'domain': domain,
-              'timestamp': timestamp,
+        // 6. login successful
+        alert(
+          Lang.t('loginSuccess'),
+          onTap: () async {
+            // 7. update recently data
+            var name = responseSubmit['data']['name'].toString();
+            var domain = responseSubmit['data']['domain'].toString();
+            var uniqueId = responseSubmit['data']['unique_id'].toString();
+            int timestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+            var db = await sqlite();
+            await db.transaction((txn) async {
+              await txn.update(
+                'emails',
+                {'timestamp': timestamp},
+                where: 'id = ?',
+                whereArgs: [item['id']],
+              );
+              int count = await txn.update(
+                'accounts',
+                {'timestamp': timestamp, 'name': name, 'domain': domain},
+                where: 'email_id = ? and unique_id = ?',
+                whereArgs: [item['id'], uniqueId],
+              );
+              if (count == 0) {
+                await txn.insert('accounts', {
+                  'email_id': item['id'],
+                  'unique_id': uniqueId,
+                  'name': name,
+                  'domain': domain,
+                  'timestamp': timestamp,
+                });
+              }
             });
-          }
-        });
-        await db.close();
-        await loadData(reset: true);
-        if (api.isNotEmpty && scheme.isNotEmpty) {
-          var uri = Uri.parse(scheme);
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-        }
+            await db.close();
+            await loadData(reset: true);
+            if (api.isNotEmpty && scheme.isNotEmpty) {
+              var uri = Uri.parse(scheme);
+              await launchUrl(uri, mode: LaunchMode.externalApplication);
+            }
+          },
+        );
       },
     );
   }
@@ -583,29 +589,29 @@ class _MyHomePageState extends State<MyHomePage> {
       endDrawer: drawer(),
       body: fetch
           ? (data.isNotEmpty
-                ? main()
-                : TDEmpty(
-                    type: TDEmptyType.plain,
-                    emptyText: Lang.t('emptyState'),
-                    emptyTextColor: TDTheme.of(context).grayColor7,
-                    image: Icon(
-                      Remix.folder_open_fill,
-                      size: 80,
-                      color: TDTheme.of(context).grayColor6,
-                    ),
-                  ))
+          ? main()
+          : TDEmpty(
+        type: TDEmptyType.plain,
+        emptyText: Lang.t('emptyState'),
+        emptyTextColor: TDTheme.of(context).grayColor7,
+        image: Icon(
+          Remix.folder_open_fill,
+          size: 80,
+          color: TDTheme.of(context).grayColor6,
+        ),
+      ))
           : Center(
-              child: TDLoading(
-                size: TDLoadingSize.large,
-                icon: TDLoadingIcon.circle,
-              ),
-            ),
+        child: TDLoading(
+          size: TDLoadingSize.large,
+          icon: TDLoadingIcon.circle,
+        ),
+      ),
       floatingActionButton: data.isNotEmpty
           ? FloatingActionButton(
-              onPressed: beforeScan,
-              backgroundColor: TDTheme.of(context).brandColor7,
-              child: const Icon(Remix.qr_scan_fill, color: Colors.white),
-            )
+        onPressed: beforeScan,
+        backgroundColor: TDTheme.of(context).brandColor7,
+        child: const Icon(Remix.qr_scan_fill, color: Colors.white),
+      )
           : Container(),
     );
   }
