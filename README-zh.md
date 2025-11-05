@@ -4,10 +4,12 @@
 
 # FastTOTP
 
-[last-commit]: https://img.shields.io/github/last-commit/cyobason/fasttotp?style=for-the-badge&logo=github&logoColor=C0CAF5&labelColor=414868
-[license]: https://img.shields.io/github/license/cyobason/fasttotp?style=for-the-badge&logo=opensourcehardware&label=License&logoColor=C0CAF5&labelColor=414868&color=8c73cc
+[last-commit]: https://img.shields.io/github/last-commit/cyobason/fasttotp
+[license]: https://img.shields.io/github/license/cyobason/fasttotp
+[downloads]: https://img.shields.io/github/downloads/cyobason/fasttotp/total
 [![][last-commit]](https://github.com/cyobason/fasttotp/pulse)
 [![][license]](https://github.com/cyobason/fasttotp/blob/main/LICENSE)
+[![][downloads]](https://github.com/cyobason/fasttotp/releases)
 
 [**<span style="color: #0052d9">English</span>**](README.md) | [**<span style="color: #0052d9">中文</span>**](README-zh.md)
 
