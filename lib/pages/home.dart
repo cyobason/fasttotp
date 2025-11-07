@@ -438,7 +438,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return;
       }
       var uri = Uri.parse(url);
-      url = '${uri.scheme}://${uri.host}${uri.path}';
+      url = '${uri.scheme}://${uri.host}:${uri.port}${uri.path}';
+      // url 要加入 port
       requestId = uri.queryParameters['request_id'].toString();
     }
     // 2. get public key
