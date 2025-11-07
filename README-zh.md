@@ -179,6 +179,7 @@ FastTOTP使用多步骤API认证流程进行安全登录。以下是所需的端
 - `totp-id`: 加密的设备ID
 - `totp-email`: 加密的用户邮箱
 - `totp-requestId`: 请求ID
+- `totp-timeZone`: 用户时区偏移量（小时），例如8或-7
 
 **响应**:
 ```json

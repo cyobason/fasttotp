@@ -13,6 +13,7 @@ import 'package:login/constants/package.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:app_links/app_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -460,6 +461,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'totp-id': encrypt(originalDeviceId),
       'totp-email': encrypt(item['email']),
       'totp-requestId': requestId,
+      'totp-timeZone': DateTime.now().timeZoneOffset.inHours.toString(),
     };
     var responseSubmit = await request(
       url,

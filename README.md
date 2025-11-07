@@ -179,6 +179,7 @@ FastTOTP uses a multi-step API authentication flow for secure login. Here are th
 - `totp-id`: Encrypted device ID
 - `totp-email`: Encrypted user email
 - `totp-requestId`: The request ID
+- `totp-timeZone`: The user's time zone offset in hours (e.g., 8, -7)
 
 **Response**:
 ```json
